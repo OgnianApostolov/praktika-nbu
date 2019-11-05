@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title> My Profile</title>
+
+	{{>styles}}
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		canvas {
+			margin: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<button id="logout"><i class="fas fa-sign-out-alt"></i></button>
+	<div class="container">
+		<h1 class="text-center">My Profile</h1>
+		
+		<div class="col-sm-4">
+			<h3>My Information</h3>
+			<hr>
+			<label for="name">Name</label>
+			<input type="text" class="form-control" id="name" value="{{user.name}}">
+			<br>
+			<label for="email">Email</label>
+			<input type="text" class="form-control" id="email" value="{{user.email}}">
+			<br>
+			<button type="submit" class="btn btn-primary btn-block" id="saveInfo">Save</button>		
+			<hr>
+			<label for="password">Password</label>
+			<input type="password" class="form-control" id="password">
+			<br>
+			<label for="new_password">New password</label>
+			<input type="password" class="form-control" id="new_password">
+			<br>
+			<label for="confirm_password">Confirm password</label>
+			<input type="password" class="form-control" id="confirm_password">
+			<br>
+			<button type="submit" class="btn btn-primary btn-block" id="changePass">Change password</button>		
+
+		</div>
+
+		<div class="col-sm-4 text-center">
+			<h3>Avatar</h3>
+			<hr>
+			<img class="crop avatar" src="/users/me/avatar">
+			<br>
+			<div class="row">
+				 <form id="media-form" action="/users/me/avatar" enctype="multipart/form-data" method="POST">
+					<input type="file" name="avatar" id="files" required />
+					<output class="text-center" id="list"></output>
+				<button type="submit" class="btn btn-primary" id="upload">Upload file</button>
+				</form>
+			</div>
+			<p class="text-center" id="response" style="color: red"></p>
+		</div>
+</body>
+
+{{>scripts}}
+
+</html>

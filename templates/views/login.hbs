@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Log in | AllSport</title>
+
+	{{>styles}}
+	
+	<style>
+		body {
+			margin:0;
+			padding:0;
+			overflow: hidden;
+		}
+		canvas {
+			margin:auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="text-center">
+			<h1>Log in to Your account</h1>
+			<br><br>
+			<form id="adminLoginForm">
+				<input type="text" class="form-control" id="username" placeholder="Email">
+				<input type="password" class="form-control" id="password" placeholder="Password">
+				<button type="submit" class="btn btn-primary btn-sm btn-block">Log in</button>
+				<br><br>
+				<p>Forgot Your password? No problem, click <a style="text-decoration: underline;" href="/password-reset">here</a></p>
+				<p>Not a member yet? Sign up <a style="text-decoration: underline;" href="/signup">here</a></p>
+				<p></p>
+			</form>
+		</div>
+	</div>
+</body>
+
+<script src="../js/user/login.js"></script>
+
+</html>

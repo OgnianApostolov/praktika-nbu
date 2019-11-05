@@ -1,0 +1,37 @@
+{
+  "name": "praktika-nbu",
+  "version": "1.0.0",
+  "description": "CSCB024 Project - Dentist appointment web system",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon -e .js,.handlebars,.hbs,.html src/index.js",
+    "test": "jest --watch --runInBand"
+  },
+  "author": "Ognian Apostolov",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "bootstrap-datepicker": "^1.9.0",
+    "bootstrap-select": "^1.13.10",
+    "bootstrap-timepicker": "^0.5.2",
+    "connect-mongo": "^2.0.3",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "hbs": "^4.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.6.6",
+    "multer": "^1.4.2",
+    "request": "^2.88.0",
+    "sharp": "^0.22.1",
+    "validator": "^10.11.0"
+  }
+}
