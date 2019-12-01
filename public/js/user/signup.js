@@ -1,39 +1,80 @@
-const $adminSignupForm = document.querySelector('#adminSignupForm');
-const username = $adminSignupForm.querySelector('#email');
-const password = $adminSignupForm.querySelector('#password');
-const $submit = $adminSignupForm.querySelector('button');
-const $response = $adminSignupForm.querySelector('p');
+const firstName = document.querySelector('#firstName');
+const lastName = document.querySelector('#lastName');
+const username = document.querySelector('#email');
+const password = document.querySelector('#password');
+const confirmPassword = document.querySelector('#confirmPassword');
+const $submit = document.querySelector('button');
+const $validationMsgs = document.querySelector('#validateMsg');
 
-$submit.addEventListener('click', (e) => {
-    e.preventDefault();//do not refresh page
-    
-    if(password.value.length > 7){
-        const data = {
-            email: email.value,
-            password: password.value
-        };
-    
-        signupRequest(data);
+const passwordLengthMsg = 'The chosen password is too short';
+const confirmationMsg = 'Confromation password does not match';
+const emailAlreadyUsed = 'This email address is already used';
+
+function validateInputFields() {
+    refreshValidationMsgs();
+
+    if (password.value.length > 1) {
+        if (password.value === confirmPassword.value) {
+            
+            const data = {
+                firstName: firstName.value,
+                lastName: lastName.value,
+                email: email.value,
+                password: password.value
+            };
+
+            signupRequest(data);
+        }
+        else {
+            appendValidationMsg(confirmationMsg);
+        }
     }
-    else{
-        $response.innerHTML = 'The chosen password is too short'
+    else {
+        appendValidationMsg(passwordLengthMsg);
     }
-});
+}
 
 function signupRequest(data){
     const http = new XMLHttpRequest();
     const url = '/users';
-    
-    http.open('POST', url, true);
-    http.setRequestHeader('Content-type', 'application/json');
     http.onreadystatechange = function() {
-        if(http.readyState === 4 && http.status === 200) {
-            window.open('/account-confirmation', '_self');
-        }
-        else{
-            $response.innerHTML = 'This email already exist'
+        if (this.readyState == 4 && this.status == 400) {
+            appendValidationMsg(emailAlreadyUsed);
+        } else if (this.readyState == 4 && this.status == 200) {
+            
         }
     }
+
+    http.open('POST', url, true);
+    http.setRequestHeader('Content-type', 'application/json');
     http.send(JSON.stringify(data));
+    
 }
 
+function appendValidationMsg(msg, attribute) {
+    if(!isValidateMsgExists(msg)) {  
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(msg));
+        li.setAttribute("id", attribute);
+        $validationMsgs.appendChild(li);
+    }
+}
+
+function refreshValidationMsgs() {
+    var msgWrapper = document.getElementById("validateMsg");
+    msgWrapper.innerHTML = "";
+}
+
+function isValidateMsgExists(msg) {
+    for (var i = 0; i < $validationMsgs.children.length; i++) {
+        if ($validationMsgs.children[i].innerText === msg) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+$("#signupForm").submit(function(e) {
+    e.preventDefault();
+});

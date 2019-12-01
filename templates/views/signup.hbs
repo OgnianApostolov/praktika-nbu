@@ -1,38 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<title>Sing Up | AllSport</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>Sign up | AllSport</title>
 	
-	<style>
-		body {
-			margin:0;
-			padding:0;
-			overflow: hidden;
-		}
-		canvas {
-			margin:auto;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
-
 <body>
-	<div class="container">
-		<div class="text-center">
-			<h1>Thank You for signing up</h1>
-			<form id="adminSignupForm">
-				<input type="text" class="form-control" id="email" placeholder="Email">
-				<input type="password" class="form-control" id="password" placeholder="Password">
-				<button type="submit" class="btn btn-primary btn-sm btn-block">Sign up</button>
-				<p></p>
-			</form>
+	<div class="limiter">
+		<div class="container-login-signup signup-image-background">
+			<div class="wrap-login-signup p-l-55 p-r-55 p-t-65 p-b-50">
+				<form class="login-signup-form validate-form" id="signupForm" onsubmit="validateInputFields()">
+					<span class="login-signup-form-title p-b-33">
+						Sign Up New Account
+					</span>
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" name="firstName" id="firstName" placeholder="First Name" required>
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" name="lastName" id="lastName" placeholder="Last Name" required>
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" name="email" id="email" placeholder="Email" required>
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="password" name="pass" id="password" placeholder="Password" required>
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="password" name="re" id="confirmPassword" placeholder="Confirm Password" required>
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+					</div>
+
+					<div>
+						<ul class="validate-input-wrapper" id="validateMsg">
+						</ul>
+					</div>
+
+					<div class="container-login-signup-form-btn m-t-20">
+						<button class="login-signup-form-btn">
+							Sign Up
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
+	
+	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/js/login-registration.js"></script>
+	<script src="/js/user/signup.js"></script>
+
 </body>
-
-<script src="../js/user/signup.js"></script>
-
 </html>

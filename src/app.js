@@ -36,6 +36,8 @@ app.set('view engine', 'hbs');
 app.set('views', views_path);
 hbs.registerPartials(partials_path);
 
+app.use(express.static(__dirname + '/public'));
+
 //use express-session
 app.use(session(sess));
 
