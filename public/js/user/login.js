@@ -1,8 +1,7 @@
-const $adminLoginForm = document.querySelector('#adminLoginForm');
-const username = $adminLoginForm.querySelector('#username');
-const password = $adminLoginForm.querySelector('#password');
-const $submit = $adminLoginForm.querySelector('button');
-const $response = $adminLoginForm.querySelector('p');
+const username = document.querySelector('#username');
+const password = document.querySelector('#password');
+const $submit = document.querySelector('button');
+const $response = document.querySelector('p');
 
 $submit.addEventListener('click', (e) => {
     e.preventDefault();//do not refresh page
@@ -11,7 +10,7 @@ $submit.addEventListener('click', (e) => {
         email: username.value,
         password: password.value
     };
-
+    
     loginRequest(data);
 });
 
@@ -23,7 +22,7 @@ function loginRequest(data){
     http.setRequestHeader('Content-type', 'application/json');
     http.onreadystatechange = function() {
         if(http.readyState == 4 && http.status == 200) {
-            window.history.back();
+            window.reload();
         }
     }
     http.send(JSON.stringify(data));

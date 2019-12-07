@@ -15,17 +15,19 @@ router.post('/users', async (req, res) => {
     try {
         await user.save();
         const token = await user.generateAuthToken();
-        res.status(201).redirect('/account-confirmation');
+        res.status(201).send({user, token});
     } catch (error) {
         res.status(400).send(error.message);
     }
 });
 
 // login a user
-router.post('/users/login', async (req, res) => {
+router.post('/users/login', async (req, res) => {    
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
 
+        console.log(user);
+        
         const token = await user.generateAuthToken();
 
         const session = new Session({session_id: req.sessionID, token});
@@ -71,6 +73,8 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 
 // get a user's profile
 router.get('/users/me', user, auth, async (req, res) => {
+    console.log(req.user);
+    
     res.render('user', {
         user: req.user
     });
@@ -121,11 +125,11 @@ router.get('/signup', user, async (req, res) => {
     });
 });
 
-router.get('/account-confirmation', user, async (req, res) => {
-    res.render('account_confirmation', {
-        title: 'account-confirmation'
-    });
-});
+// router.get('/account-confirmation', user, async (req, res) => {
+//     res.render('account_confirmation', {
+//         title: 'account-confirmation'
+//     });
+// });
 
 // confirm account
 router.get('/users/confirm/:email', async(req, res) => {
