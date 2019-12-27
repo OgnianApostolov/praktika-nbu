@@ -41,6 +41,55 @@ router.get('/doctors/:id', async (req, res) => {
     }
 });
 
+//get the doctors-rating page
+router.get('/doctors/rating/:id', async (req, res) => {	
+	const _doctorId = req.params.id;
+			
+	try {		
+		const doctor = await Doctor.findById(_doctorId);
+		
+		if(!doctor) {			
+            return res.status(400).send({error: 'Invalid doctor!'});
+		}
+		
+		res.render('doctor-rating', {doctor: doctor});
+	}
+	catch (error) {		
+		res.status(500).send(error.message);
+	}	
+});
+
+//updates the doctors rating
+//parameters:
+//id - the doctor ObjectId
+//rating - the number of stars the doctor has been rated
+router.post('/doctors/rating', async (req, res) => {
+	const _id = req.body.id;
+	const _userRating = req.body.rating;
+	
+	try {
+		const doctor = await Doctor.findById(_id);
+		
+		if(!doctor) {
+			return res.status(400).send({error: 'Invalid doctor!'});
+		}
+		
+		if(isNaN(_userRating) || !(_userRating > 0 && _userRating <= 5)) {
+			return res.status(400).send({error: 'Invalid rating!'})
+		}
+		
+		let newTotalRates = doctor.totalRates + 1;
+		let newRating = ((doctor.rating * doctor.totalRates) + _userRating)/newTotalRates;
+		
+		await Doctor.update({id: _id}, {$set : {rating : newRating, totalRates: newTotalRates}});
+		
+		res.status(200).send({rating: newRating});		
+	}
+	catch(error) {
+		res.status(500).send(error.message);	
+	}
+});
+
 // update doctor by id
 router.patch('/doctors/:id', async (req, res) => {
     
