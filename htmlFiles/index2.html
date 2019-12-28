@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script>
+  $(document).ready(function(){
+   $(".login-form").hide();
+   $(".login").css("background","none");
+   
+  $(".login").click(function() {
+   $(".signup-form").hide();
+   $(".login-form").show();
+   $(".signup").css("background","none");
+   $(".login").css("background","#fff");
+  });
+  
+  $(".signup").click(function() {
+   $(".signup-form").show();
+   $(".login-form").hide();
+   $(".signup").css("background","#fff");
+   $(".login").css("background","none");
+  });
+  });
+   </script>
+   <style>
+  *{
+   margin:0;
+   padding:0;
+   user-select:none;
+  }
+  header{
+    
+    background-image: url(background.jpg);
+    background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	overflow:hidden;
+	height:100vh;
+	width: 100%;
+	
+
+
+}
+  body,html{
+  
+  
+   height: 100%;
+    margin: 0;
+   color:		#1E90FF;
+   font-family:Roboto, san-serif;
+  }
+  .container{
+   width:450px;
+   margin: 70px auto;
+  }
+  .signup,
+  .login{
+   width:50%;
+   background:#fff;
+   height:60px;
+   float:left;
+   text-align:center;
+   line-height:60px;
+   text-transform:uppercase;
+   
+  }
+  .signup-form,
+  .login-form{
+   background:#fff;
+   box-sizing:border-box;
+   padding:40px;
+   clear:both;
+   width:100%;
+   height:450px;
+ 
+  
+  
+   
+  }
+  input{
+   width: 100%;
+   box-sizing: border-box;
+   padding: 16px;
+   margin-bottom: 25px;
+   border: 2px solid #e9eaea;
+   color: #3e3e40;
+   font-size: 16px;
+   outline:none;
+   transition: all 0.5s ease;
+  }
+  .input:focus{
+   border: 2px solid #34b3a0;
+  }
+  .btn{
+   width:100%;
+   background:#34b3a0;
+   height:60px
+   text-align:center;
+   line-height:60px;
+   text-transform:uppercase;
+   color:#fff;
+   font-weight:bold;
+   letter-spacing:1px;
+   cursor:pointer;
+   margin-bottom:30px;
+  }
+  span a {
+   text-decoration:none;
+   color:#000;
+  }
+   </style>
+   </head>
+<body>
+<header>
+
+<div class="container">
+ 
+  <!--  -->
+  <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+  
+    
+    <div class="signup">Sign-up</div>
+ <div class="login">Log-in</div>
+    <div class="signup-form">
+  <input type="text" 
+       placeholder="Your Email Address" 
+    class="input"><br>
+  <input type="text" 
+       placeholder="Choose a Username" 
+    class="input"><br>
+  <input type="password" 
+       placeholder="Choose a Password" 
+    class="input"><br>
+  <div class="btn">Create Account</div>   
+ </div>
+ 
+    <div class="login-form">
+  <input type="text" 
+       placeholder="Your Email Address" 
+    class="input"><br>
+  <input type="text" 
+       placeholder="Choose a Username" 
+    class="input"><br>
+  <input type="password" 
+       placeholder="Choose a Password" 
+    class="input"><br> 
+  <div class="btn">Log in</div>
+  <span><a href="#">I forgot my Username or Password</a>
+  </span>
+ </div>
+        
+  </div>
+  </header>
+</body>
+</html>
