@@ -19,7 +19,11 @@ router.post('/doctors', async (req, res) => {
 router.get('/doctors', async (req, res) => {
     try {
         const doctors = await Doctor.find({});
-        res.send(doctors);
+        res.render('doctors', {
+            title: 'doctors',
+            doctors
+        });
+        // res.send(doctors);
     } catch (error) {
         res.status(500).send(error.message);
     }

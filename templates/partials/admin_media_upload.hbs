@@ -1,0 +1,30 @@
+<!-- Button trigger modal -->
+<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalCenter" style="background: #0CE8CD;"><i class="fas fa-cloud-upload-alt"></i> Upload Media</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLongTitle">Attach a file <i class="fas fa-paperclip"></i></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="media-form" action="/medias" enctype="multipart/form-data" method="POST">
+          <input type="file" name="media" id="files" required />
+          <label for="alt">Describe the picture with a few words (Recommended)</label>
+          <input type="text" name="alt" id="alt"/>
+          <output id="list"></output>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="upload">Upload file</button>
+      </div>
+    </div>
+  </div>
+</div>    
+
+<script src="../js/modal.js"></script>

@@ -22,7 +22,7 @@ function loginRequest(data){
     http.setRequestHeader('Content-type', 'application/json');
     http.onreadystatechange = function() {
         if(http.readyState == 4 && http.status == 200) {
-            window.reload();
+            location.reload();
         }
     }
     http.send(JSON.stringify(data));
