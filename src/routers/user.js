@@ -87,6 +87,30 @@ router.get('/users/:id', auth, async (req, res) => {
 });
 
 // update a user
+router.patch('/users/:id', async(req, res) => {
+    const user = await User.findById(req.params.id);
+    //return message for invalid updates
+    const updates = Object.keys(req.body);
+    const allowed_updates = ['ambulatory_list', 'upvotes', 'downvotes', 'blacklist' ];
+    //cycle trough the updates array and if it returns false - return
+    const isValidOperation = updates.every((update) => allowed_updates.includes(update));
+    if(!isValidOperation){
+        return res.status(400).send({error: 'Invalid updates!'});
+    }
+
+    try {
+        updates.forEach((update) => user[update] = req.body[update]);
+
+        await user.save();
+        
+        res.send(user);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
+
+// update a user
 router.patch('/users/me', auth, async(req, res) => {
     //return message for invalid updates
     const updates = Object.keys(req.body);
@@ -113,6 +137,48 @@ router.delete('/users/me', auth, async (req, res) => {
     try {
         await req.user.remove();
         res.send(req.user);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+router.get('/users/upvote/:id', async (req, res) => {
+    const _id = req.params.id;
+
+    try {
+        const user = await User.findById(_id);
+
+        if(!user){
+            return res.status(404).send();
+        }
+
+        user.upvotes ++;
+        await user.save();
+
+        res.redirect('/admin-users');
+        // res.send(user);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+// get a particular user
+router.get('/users/downvote/:id', async (req, res) => {
+    const _id = req.params.id;
+
+    try {
+        const user = await User.findById(_id);
+
+        if(!user){
+            return res.status(404).send();
+        }
+
+        user.downvotes ++;
+        await user.save();
+
+        res.redirect('/admin-users');
+
+        // res.send(user);
     } catch (error) {
         res.status(500).send(error.message);
     }

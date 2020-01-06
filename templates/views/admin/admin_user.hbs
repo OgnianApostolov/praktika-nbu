@@ -10,8 +10,6 @@
 
 	{{>admin_styles}}
 
-	<link href="/node_modules/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet">
-
 	<style>
 		body {
 			margin: 0;
@@ -32,300 +30,32 @@
 		<div class="container-fluid scrollable">
 			<br>
 			{{#if user}}
-			<h4>User page</h4>
+			<h4>User</h4>
 			{{else}}
 			<h4>New user</h4>
 			{{/if}}
 			<p id="user_id">{{user.id}}</p>
 			<form id="user-form">
-
 				<br>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".media-modal">Upload
-					images</button>
-				<div class="modal fade media-modal" aria-hidden="true" style="min-width: 80%;">
-					<div class="modal-dialog modal-lg" style="min-width: 80%;">
-						<div class="modal-content">
-							{{>admin_media}}
-						</div>
-					</div>
-				</div>
-				<div id='image-container' class="row">
-					{{#each user.medias}}
-					<div class="col-sm-6 col-md-3 col-lg-2">
-						<button type="submit" class="btn btn-danger remove_image"><i
-								class="fas fa-minus-circle"></i></button>
-						<img id='{{media}}' src="/medias/{{media}}" class="cropmedia">
-					</div>
-					{{/each}}
-				</div>
-
+				<label>Rating</label>
+				<p>
+					{{user.upvotes}}<a href="/users/upvote/{{user.id}}"><i class="fas fa-thumbs-up"
+							style="color: #000; font-size: 1.5em;"></i></a>
+					{{user.downvotes}}<a href="/users/downvote/{{user.id}}"><i class="fas fa-thumbs-down"
+							style="color: #000; font-size: 1.5em;"></i>
+				</p>
 				<br>
-				<label for="name">Name</label>
-				<input type="text" class="form-control" id="name" value="{{user.name}}">
-
+				<label>First name: {{user.firstname}}</label>
 				<br>
-				<label for="type">Type</label>
-				<input type="text" class="form-control" id="type" value="{{user.type}}">
-
+				<label>Last name: {{user.lastName}}</label>
 				<br>
-				<label for="city">City</label>
-				<input type="text" class="form-control" id="city" value="{{user.city}}">
+				<label>E-mail: {{user.email}}</label>
 				<br>
-				<label for="notes">Notes</label>
-				<input type="text" class="form-control" id="notes" value="{{user.notes}}">
-
-				<hr>
-				{{!-- Moday --}}
-				<div class="form-check">
-					{{#if user.monday.active}}
-					<input class="form-check-input" type="checkbox" checked="checked" id="monday_active">
-					{{else}}
-					<input class="form-check-input" type="checkbox" id="monday_active">
-					{{/if}}
-					<label for="monday_active">Monday</label>
-				</div>
-				<div id='monday_hours'>
-					{{#each user.monday.hours}}
-					<div class="holder">
-						<br>
-						<button type="submit" class="btn btn-danger remove_image"><i
-								class="fas fa-minus-circle"></i></button>
-						<label>Booking hours</label>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<input id="start" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{start}}">
-							<input id="end" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{end}}">
-							<div class="input-group-append input-group-addon">
-								<span class="input-group-text" id="clock-icon"><i class="far fa-clock"></i></span>
-							</div>
-						</div>
-						<br>
-					</div>
-					{{/each}}
-				</div>
-				<br>
-				<label class="col-xs-5 col-sm-4 col-md-3 col-lg-2" for="addMondayHours">Add booking hours</label>
-				<button type="submit" class="btn btn-primary" id="addMondayHours"><i
-						class="fas fa-plus-circle"></i></button>
-				<hr>
-				{{!-- Tuesday --}}
-				<div class="form-check">
-					{{#if user.tuesday.active}}
-					<input class="form-check-input" type="checkbox" checked="checked" id="tuesday_active">
-					{{else}}
-					<input class="form-check-input" type="checkbox" id="tuesday_active">
-					{{/if}}
-					<label for="tuesday_active">Tuesday</label>
-				</div>
-				<div id='tuesday_hours'>
-					{{#each user.tuesday.hours}}
-					<div class="holder">
-						<br>
-						<button type="submit" class="btn btn-danger remove_image"><i
-								class="fas fa-minus-circle"></i></button>
-						<label>Booking hours</label>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<input id="start" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{start}}">
-							<input id="end" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{end}}">
-							<div class="input-group-append input-group-addon">
-								<span class="input-group-text" id="clock-icon"><i class="far fa-clock"></i></span>
-							</div>
-						</div>
-						<br>
-					</div>
-					{{/each}}
-				</div>
-				<br>
-				<label class="col-xs-5 col-sm-4 col-md-3 col-lg-2" for="addTuesdayHours">Add booking hours</label>
-				<button type="submit" class="btn btn-primary" id="addTuesdayHours"><i
-						class="fas fa-plus-circle"></i></button>
-				<hr>
-				{{!-- Wednesday --}}
-				<div class="form-check">
-					{{#if user.wednesday.active}}
-					<input class="form-check-input" type="checkbox" checked="checked" id="wednesday_active">
-					{{else}}
-					<input class="form-check-input" type="checkbox" id="wednesday_active">
-					{{/if}}
-					<label for="wednesday_active">Wednesday</label>
-				</div>
-				<div id='wednesday_hours'>
-					{{#each user.wednesday.hours}}
-					<div class="holder">
-						<br>
-						<button type="submit" class="btn btn-danger remove_image"><i
-								class="fas fa-minus-circle"></i></button>
-						<label>Booking hours</label>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<input id="start" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{start}}">
-							<input id="end" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{end}}">
-							<div class="input-group-append input-group-addon">
-								<span class="input-group-text" id="clock-icon"><i class="far fa-clock"></i></span>
-							</div>
-						</div>
-						<br>
-					</div>
-					{{/each}}
-				</div>
-				<br>
-				<label class="col-xs-5 col-sm-4 col-md-3 col-lg-2" for="addWednesdayHours">Add booking hours</label>
-				<button type="submit" class="btn btn-primary" id="addWednesdayHours"><i
-						class="fas fa-plus-circle"></i></button>
-				<hr>
-				{{!-- Thursday --}}
-				<div class="form-check">
-					{{#if user.thursday.active}}
-					<input class="form-check-input" type="checkbox" checked="checked" id="thursday_active">
-					{{else}}
-					<input class="form-check-input" type="checkbox" id="thursday_active">
-					{{/if}}
-					<label for="thursday_active">Thursday</label>
-				</div>
-				<div id='thursday_hours'>
-					{{#each user.thursday.hours}}
-					<div class="holder">
-						<br>
-						<button type="submit" class="btn btn-danger remove_image"><i
-								class="fas fa-minus-circle"></i></button>
-						<label>Booking hours</label>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<input id="start" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{start}}">
-							<input id="end" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{end}}">
-							<div class="input-group-append input-group-addon">
-								<span class="input-group-text" id="clock-icon"><i class="far fa-clock"></i></span>
-							</div>
-						</div>
-						<br>
-					</div>
-					{{/each}}
-				</div>
-				<br>
-				<label class="col-xs-5 col-sm-4 col-md-3 col-lg-2" for="addThursdayHours">Add booking hours</label>
-				<button type="submit" class="btn btn-primary" id="addThursdayHours"><i
-						class="fas fa-plus-circle"></i></button>
-				<hr>
-				{{!-- Friday --}}
-				<div class="form-check">
-					{{#if user.friday.active}}
-					<input class="form-check-input" type="checkbox" checked="checked" id="friday_active">
-					{{else}}
-					<input class="form-check-input" type="checkbox" id="friday_active">
-					{{/if}}
-					<label for="friday_active">Friday</label>
-				</div>
-				<div id='friday_hours'>
-					{{#each user.friday.hours}}
-					<div class="holder">
-						<br>
-						<button type="submit" class="btn btn-danger remove_image"><i
-								class="fas fa-minus-circle"></i></button>
-						<label>Booking hours</label>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<input id="start" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{start}}">
-							<input id="end" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{end}}">
-							<div class="input-group-append input-group-addon">
-								<span class="input-group-text" id="clock-icon"><i class="far fa-clock"></i></span>
-							</div>
-						</div>
-						<br>
-					</div>
-					{{/each}}
-				</div>
-				<br>
-				<label class="col-xs-5 col-sm-4 col-md-3 col-lg-2" for="addFridayHours">Add booking hours</label>
-				<button type="submit" class="btn btn-primary" id="addFridayHours"><i
-						class="fas fa-plus-circle"></i></button>
-				<hr>
-				{{!-- Saturday --}}
-				<div class="form-check">
-					{{#if user.saturday.active}}
-					<input class="form-check-input" type="checkbox" checked="checked" id="saturday_active">
-					{{else}}
-					<input class="form-check-input" type="checkbox" id="saturday_active">
-					{{/if}}
-					<label for="saturday_active">Saturday</label>
-				</div>
-				<div id='saturday_hours'>
-					{{#each user.saturday.hours}}
-					<div class="holder">
-						<br>
-						<button type="submit" class="btn btn-danger remove_image"><i
-								class="fas fa-minus-circle"></i></button>
-						<label>Booking hours</label>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<input id="start" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{start}}">
-							<input id="end" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{end}}">
-							<div class="input-group-append input-group-addon">
-								<span class="input-group-text" id="clock-icon"><i class="far fa-clock"></i></span>
-							</div>
-						</div>
-						<br>
-					</div>
-					{{/each}}
-				</div>
-				<br>
-				<label class="col-xs-5 col-sm-4 col-md-3 col-lg-2" for="addSaturdayHours">Add booking hours</label>
-				<button type="submit" class="btn btn-primary" id="addSaturdayHours"><i
-						class="fas fa-plus-circle"></i></button>
-				<hr>
-				{{!-- Sunday --}}
-				<div class="form-check">
-					{{#if user.sunday.active}}
-					<input class="form-check-input" type="checkbox" checked="checked" id="sunday_active">
-					{{else}}
-					<input class="form-check-input" type="checkbox" id="sunday_active">
-					{{/if}}
-					<label for="sunday_active">Sunday</label>
-				</div>
-				<div id='sunday_hours'>
-					{{#each user.sunday.hours}}
-					<div class="holder">
-						<br>
-						<button type="submit" class="btn btn-danger remove_image"><i
-								class="fas fa-minus-circle"></i></button>
-						<label>Booking hours</label>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<input id="start" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{start}}">
-							<input id="end" type="text" class="col-sm-2 form-control timepicker"
-								aria-describedby="clock-icon" value="{{end}}">
-							<div class="input-group-append input-group-addon">
-								<span class="input-group-text" id="clock-icon"><i class="far fa-clock"></i></span>
-							</div>
-						</div>
-						<br>
-					</div>
-					{{/each}}
-				</div>
-				<br>
-				<label class="col-xs-5 col-sm-4 col-md-3 col-lg-2" for="addSundayHours">Add booking hours</label>
-				<button type="submit" class="btn btn-primary" id="addSundayHours"><i
-						class="fas fa-plus-circle"></i></button>
-				<hr>
-
+				<label for="ambulatory_list">Ambulatory list</label>
+				<textarea id="ambulatory_list">{{{user.ambulatory_list}}}</textarea> <br>
 				<br>
 				<p id="response" style="color: red"></p>
 				<br>
-				{{#if user}}
-				<button type="submit" class="btn btn-danger" id="del"><i class="fas fa-trash-alt"></i></button>
-				<button type="submit" class="btn btn-primary" id="save_and_duplicate">Save & Duplicate</button>
-				{{else}}
-				<button type="submit" class="btn btn-danger" id="del" disabled='true'><i
-						class="fas fa-trash-alt"></i></button>
-				<button type="submit" class="btn btn-primary" id="save_and_duplicate" disabled='true'>Save &
-					Duplicate</button>
-				{{/if}}
 				<button type="submit" class="btn btn-primary" id="close">Close</button>
 				<button type="submit" class="btn btn-primary" id="save">Save</button>
 			</form>
@@ -335,7 +65,7 @@
 
 </body>
 {{>admin_scripts}}
-<script src="/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script src="/node_modules/ckeditor/ckeditor.js"></script>
 <script src="/js/admin/admin_user.js"></script>
 
 </html>
