@@ -1,19 +1,11 @@
 const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
-    date: [{
-        type: Date
-    },
-	comments: [
-		comment: {
-			type: String
-		}
-	],
-	isConfirmedByDoctor: {
-		type: Boolean,
-		default: false,
+    date: {
+		type: Date,
+		unique: true,
 		required: true
-	},
+    },
 	doctor: {
 		type:mongoose.Schema.Types.ObjectId,
         ref:'Doctor',
@@ -21,9 +13,9 @@ const appointmentSchema = new mongoose.Schema({
 	},
 	client: {
 		type:mongoose.Schema.Types.ObjectId,
-        ref:'Client',
+        ref:'User',
 		required: true
-	}]
+	}
 }, {
     timestamps: true
 });
