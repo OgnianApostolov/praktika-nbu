@@ -56,7 +56,21 @@ const userSchema = new mongoose.Schema({
     isConfirmed: {
        type: Boolean,
        default: false 
-    }
+    },
+    ambulatory_list: {
+        type: String
+    },
+    upvotes: {
+        type: Number,
+        default: 0
+    },
+    downvotes: {
+        type: Number,
+        default: 0
+    },
+    blacklist: [{
+        type: mongoose.Schema.Types.ObjectId
+    }]
 },{
     timestamps: true
 });

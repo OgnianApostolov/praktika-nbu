@@ -8,6 +8,7 @@
 	<title>{{title}}</title>
 
 	{{>styles}}
+  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 	<style>
 		body {
@@ -43,16 +44,35 @@
 
 				<div class="col-sm-9">
 					<div class="row">
-						{{#each products}}
-
-						<a href="./doctors/{{url}}">
-							<div class="col-sm-4">
-								<img id="thumbnail" src="./medias/{{medias.0.id}}" alt="{{medias.0.alt}}" title="{{medias.0.alt}}" class='cropmedia thumbnail' width="150">
-								<h1>{{name}}</h1>
-								<p>{{rating}}</p>
+						
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<thead>
+										<tr>
+											<th class="text-center">Photo</th>
+											<th class="text-center">Name</th>
+											<th class="text-center">Type</th>
+											<th class="text-center">City</th>
+											<th class="text-center"><i class="fas fa-thumbs-up" style="color: #000; font-size: 1.5em;"></i><i class="fas fa-thumbs-down" style="color: #000; font-size: 1.5em;"></i></th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each doctors}}
+										<tr>
+											<td><img id="thumbnail" src="/medias/{{medias.0.media}}" alt="{{medias.0.alt}}" title="{{medias.0.alt}}" class='cropmedia thumbnail' width="150"></td>
+											<td><a href="/doctors/{{id}}">{{name}}</a></td>
+											<td>{{type}}</td>
+											<td>{{city}}</td>
+											<td>{{upvotes}}/{{downvotes}}</td>
+										</tr>
+										{{else}}
+										<p class="empty">No doctors found</p>
+										{{/each}}
+									</tbody>
+								</table>
 							</div>
-						</a>
-						{{/each}}
+						</div>
 						
 					</div>
 				</div>
@@ -66,5 +86,25 @@
 </body>
 
 {{>scripts}}
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Page level custom scripts -->
+<script>
+    // Call the dataTables jQuery plugin
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
 
+    $(document).ready(function($) {
+        $('*[data-href]').on('click', function() {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
+<style>
+[data-href] {
+    cursor: pointer;
+}
+</style>
 </html>

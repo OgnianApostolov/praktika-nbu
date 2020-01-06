@@ -11,121 +11,126 @@ const doctorSchema = new mongoose.Schema({
     city: {
         type: String
     },
-    rating: {
-        type: Number
+    upvotes: {
+        type: Number,
+        default: 0
     },
-	totalRates: {
-		type: Number
-	},
-    workhours: {
-        monday: {
-            active: {
-                type: Boolean,
-                default: false
-            },
-            hours: [{
-                start: {
-                    type: String
-                },
-                end: {
-                    type: String
-                }
-            }]
+    downvotes: {
+        type: Number,
+        default: 0
+    },
+    monday: {
+        active: {
+            type: Boolean,
+            default: false
         },
-        tuesday: {
-            active: {
-                type: Boolean,
-                default: false
+        hours: [{
+            start: {
+                type: String
             },
-            hours: [{
-                start: {
-                    type: String
-                },
-                end: {
-                    type: String
-                }
-            }]
+            end: {
+                type: String
+            }
+        }]
+    },
+    tuesday: {
+        active: {
+            type: Boolean,
+            default: false
         },
-        wednesday: {
-            active: {
-                type: Boolean,
-                default: false
+        hours: [{
+            start: {
+                type: String
             },
-            hours: [{
-                start: {
-                    type: String
-                },
-                end: {
-                    type: String
-                }
-            }]
+            end: {
+                type: String
+            }
+        }]
+    },
+    wednesday: {
+        active: {
+            type: Boolean,
+            default: false
         },
-        thursday: {
-            active: {
-                type: Boolean,
-                default: false
+        hours: [{
+            start: {
+                type: String
             },
-            hours: [{
-                start: {
-                    type: String
-                },
-                end: {
-                    type: String
-                }
-            }]
+            end: {
+                type: String
+            }
+        }]
+    },
+    thursday: {
+        active: {
+            type: Boolean,
+            default: false
         },
-        friday: {
-            active: {
-                type: Boolean,
-                default: false
+        hours: [{
+            start: {
+                type: String
             },
-            hours: [{
-                start: {
-                    type: String
-                },
-                end: {
-                    type: String
-                }
-            }]
+            end: {
+                type: String
+            }
+        }]
+    },
+    friday: {
+        active: {
+            type: Boolean,
+            default: false
         },
-        saturday: {
-            active: {
-                type: Boolean,
-                default: false
+        hours: [{
+            start: {
+                type: String
             },
-            hours: [{
-                start: {
-                    type: String
-                },
-                end: {
-                    type: String
-                }
-            }]
+            end: {
+                type: String
+            }
+        }]
+    },
+    saturday: {
+        active: {
+            type: Boolean,
+            default: false
         },
-        sunday: {
-            active: {
-                type: Boolean,
-                default: false
+        hours: [{
+            start: {
+                type: String
             },
-            hours: [{
-                start: {
-                    type: String
-                },
-                end: {
-                    type: String
-                }
-            }]
-        }
+            end: {
+                type: String
+            }
+        }]
+    },
+    sunday: {
+        active: {
+            type: Boolean,
+            default: false
+        },
+        hours: [{
+            start: {
+                type: String
+            },
+            end: {
+                type: String
+            }
+        }]
     },
     notes: {
         type: String
     },
+    medias: [{
+        media: {
+            type: mongoose.Schema.Types.ObjectId
+        }
+    }],
     blacklist: [{
         type: mongoose.Schema.Types.ObjectId
     }]
 }, {
-    timestamps: true
-});
+        timestamps: true
+    });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);
 

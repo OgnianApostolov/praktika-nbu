@@ -90,7 +90,7 @@ router.get('/users/:id', auth, async (req, res) => {
 router.patch('/users/me', auth, async(req, res) => {
     //return message for invalid updates
     const updates = Object.keys(req.body);
-    const allowed_updates = ['name', 'email', 'password', 'avatar', 'isAdmin', 'isStaff', 'organization_name', 'firstname', 'lastname', 'phone_number', 'address', 'city', 'state', 'country', 'zip_code', 'tax_identification_number', 'notes', 'orders'];
+    const allowed_updates = ['firstname', 'lastname', 'email', 'password', 'avatar', 'isAdmin', 'isStaff', 'isConfirmed', 'ambulatory_list', 'upvotes', 'downvotes', 'blacklist' ];
     //cycle trough the updates array and if it returns false - return
     const isValidOperation = updates.every((update) => allowed_updates.includes(update));
     if(!isValidOperation){

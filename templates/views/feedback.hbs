@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{doctor.name}} | {{doctor.type}}</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">`
+
+    {{>styles}}
+    <link rel="stylesheet" type="text/css" href="/css/doctor-rating.css">
+</head>
+
+<body>
+    {{>header}}    
+    <div class="wrapper">
+        <div class="profile-card js-profile-card">
+            <div class="profile-card__img">
+                <img src="/medias/{{doctor.medias.0.media}}" alt="profile card">
+            </div>
+
+            <div class="profile-card__cnt js-profile-cnt">
+                <div class="profile-card__name">{{doctor.type}} {{doctor.name}}</div>
+                <div class="profile-card__txt">
+                    Thank You for the feedback!
+                </div>
+            </div>
+        </div>
+    </div>
+    {{>footer}}
+</body>
+{{>scripts}}
+</html>

@@ -40,8 +40,8 @@ function signupRequest(data){
     http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 400) {
             appendValidationMsg(emailAlreadyUsed);
-        } else if (this.readyState == 4 && this.status == 200) {
-            
+        } else if (this.readyState == 4 && this.status == 201) {
+            window.location.href = '/users/me';
         }
     }
 

@@ -34,12 +34,13 @@ router.post('/medias', upload.single('media'), async (req, res) => {
 });
 
 router.get('/medias/:id', async (req, res) => {
-    try {
+    try {        
         const media = await Media.findById(req.params.id);
+        console.log(media);
         
         res.set('Content-Type', 'image/png');
         res.send(media.file);
-    } catch (error) {
+    } catch (error) {        
         res.status(404).send();
     }
 });

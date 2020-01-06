@@ -1,6 +1,7 @@
 const express = require('express');
 
 const Doctor = require('../models/doctor');
+const User = require('../models/user');
 const Media = require('../models/media');
 
 const router = new express.Router();
@@ -29,6 +30,36 @@ router.get('/admin-doctor', async (req, res) => {
         res.render('admin/admin_doctor', {
             title: 'admin-doctor',
             doctor,
+            medias
+        });
+    } catch (error) {
+        res.status(500).send(error);        
+    }
+});
+
+router.get('/admin-users', async (req, res) => {
+    try {
+        const users = await User.find({}).sort({'createdAt': 'descending'});      
+        const medias = await Media.find({}).sort({'createdAt': 'descending'});
+
+        res.render('admin/admin_users', {
+            title: 'admin-users',
+            users,
+            medias
+        });
+    } catch (error) {
+        res.status(500).send(error);        
+    }
+});
+
+router.get('/admin-user', async (req, res) => {
+    try {       
+        const user = await User.findById(req.query.id);      
+        const medias = await Media.find({}).sort({'createdAt': 'descending'});
+
+        res.render('admin/admin_user', {
+            title: 'admin-user',
+            user,
             medias
         });
     } catch (error) {

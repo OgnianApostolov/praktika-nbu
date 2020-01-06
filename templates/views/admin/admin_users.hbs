@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{{title}}</title>
+
+	{{>admin_styles}}
+
+	<style>
+		body {
+			margin:0;
+			padding:0;
+			overflow: hidden;
+		}
+		canvas {
+			margin:auto;
+		}
+	</style>
+</head>
+
+<body>
+<div class="wrapper">
+	{{>admin_navigation}}
+	<div id="content-wrapper" class="container-fluid">
+		<div class="scrollable">
+			<br>
+			<h2>My users</h2>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>User e-mail</th>
+								<th>Picture</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each users}}
+							<tr>
+								<td><a href="admin-user?id={{id}}">{{email}}</a></td>
+								<td><img src="/medias/{{medias.0.media}}" class="thumbnail"></td>
+							</tr>
+							{{else}}
+							<p class="empty">Currently you have no users</p>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<br>
+			{{!-- <button type="submit" class="btn btn-primary"><a href="/admin-user">Create a new user</a></button> --}}
+		</div>
+	</div>
+</div>
+	
+</body>
+
+{{>admin_scripts}}
+
+</html>

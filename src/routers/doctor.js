@@ -39,7 +39,55 @@ router.get('/doctors/:id', async (req, res) => {
         if(!doctor){
             return res.status(404).send();
         }
-        res.send(doctor);
+        res.render('doctor', {
+            doctor
+        })
+        // res.send(doctor);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+router.get('/upvote/:id', async (req, res) => {
+    const _id = req.params.id;
+
+    try {
+        const doctor = await Doctor.findById(_id);
+
+        if(!doctor){
+            return res.status(404).send();
+        }
+
+        doctor.upvotes ++;
+        await doctor.save();
+
+        res.render('feedback', {
+            doctor
+        })
+        // res.send(doctor);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+// get a particular doctor
+router.get('/downvote/:id', async (req, res) => {
+    const _id = req.params.id;
+
+    try {
+        const doctor = await Doctor.findById(_id);
+
+        if(!doctor){
+            return res.status(404).send();
+        }
+
+        doctor.downvotes ++;
+        await doctor.save();
+
+        res.render('feedback', {
+            doctor
+        })
+        // res.send(doctor);
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -95,11 +143,9 @@ router.post('/doctors/rating', async (req, res) => {
 });
 
 // update doctor by id
-router.patch('/doctors/:id', async (req, res) => {
-    
+router.patch('/doctors/:id', async (req, res) => {    
     const updates = Object.keys(req.body);
-    console.log(updates);
-    const allowedUpdates = ['name', 'type', 'city', 'rating', 'rating', 'workhours', 'notes', 'blacklist'];
+    const allowedUpdates = ['name', 'type', 'city', 'upvotes', 'downvotes', 'notes', 'blacklist', 'medias', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     const isValidOperation = updates.every((update => allowedUpdates.includes(update)));
 
     if(!isValidOperation){
@@ -117,7 +163,7 @@ router.patch('/doctors/:id', async (req, res) => {
         updates.forEach((update) => doctor[update] = req.body[update]);
         await doctor.save();
         res.send(doctor);
-    } catch (error) {
+    } catch (error) {        
         res.status(400).send(error.message);
     }
 });
