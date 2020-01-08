@@ -12,6 +12,7 @@ const session_router = require('./routers/session');
 const admin_router = require('./routers/admin');
 const site_router = require('./routers/site');
 const doctor_router = require('./routers/doctor');
+const appointment_router = require('./routers/appointment');
 
 const app = express();
 const sess = {
@@ -57,6 +58,7 @@ app.use(session_router);
 app.use(admin_router);
 app.use(site_router);
 app.use(doctor_router);
+app.use(appointment_router);
 
 const server = http.createServer(app);
 

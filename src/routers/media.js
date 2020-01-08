@@ -26,7 +26,7 @@ router.post('/medias', upload.single('media'), async (req, res) => {
         media.filename = req.file.originalname;
         media.alt = req.body.alt;
         await media.save();
-        res.redirect(req.rawHeaders[11]);
+        res.redirect('/admin-media');
         
     } catch (error) {
         res.status(400).send({ error: error.message });
@@ -36,7 +36,6 @@ router.post('/medias', upload.single('media'), async (req, res) => {
 router.get('/medias/:id', async (req, res) => {
     try {        
         const media = await Media.findById(req.params.id);
-        console.log(media);
         
         res.set('Content-Type', 'image/png');
         res.send(media.file);

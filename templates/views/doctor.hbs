@@ -36,6 +36,76 @@
                         {{doctor.downvotes}}<a href="/downvote/{{doctor.id}}"><i class="fas fa-thumbs-down" style="color: #000; font-size: 1.5em;"></i>
                     </p>
                 </div>
+                <div class="row">
+                    <h1>Workhours</h1>
+                    {{#if doctor.monday.active}}
+                    <div class="col-sm-3">
+                            <p>Monday</p>
+                            {{#each doctor.monday.hours}}
+                                <p>{{start}} - {{end}}</p>
+                            {{/each}}
+                    </div>
+                    {{/if}}
+                    
+                    {{#if doctor.tuesday.active}}
+                    <div class="col-sm-3">
+                            <p>Tuesday</p>
+                            {{#each doctor.tuesday.hours}}
+                                <p>{{start}} - {{end}}</p>
+                            {{/each}}
+                    </div>
+                    {{/if}}
+                    
+                    {{#if doctor.wednesday.active}}
+                    <div class="col-sm-3">
+                            <p>Wednesday</p>
+                            {{#each doctor.wednesday.hours}}
+                                <p>{{start}} - {{end}}</p>
+                            {{/each}}
+                    </div>
+                    {{/if}}
+                    
+                    {{#if doctor.thursday.active}}
+                    <div class="col-sm-3">
+                            <p>Thursday</p>
+                            {{#each doctor.thursday.hours}}
+                                <p>{{start}} - {{end}}</p>
+                            {{/each}}
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="row">
+                    {{#if doctor.friday.active}}
+                    <div class="col-sm-3">
+                            <p>Friday</p>
+                            {{#each doctor.friday.hours}}
+                                <p>{{start}} - {{end}}</p>
+                            {{/each}}
+                    </div>
+                    {{/if}}
+                    
+                    {{#if doctor.saturday.active}}
+                    <div class="col-sm-3">
+                            <p>Saturday</p>
+                            {{#each doctor.saturday.hours}}
+                                <p>{{start}} - {{end}}</p>
+                            {{/each}}
+                    </div>
+                    {{/if}}
+
+                    {{#if doctor.sunday.active}}
+                    <div class="col-sm-3">
+                            <p>Sunday</p>
+                            {{#each doctor.sunday.hours}}
+                                <p>{{start}} - {{end}}</p>
+                            {{/each}}
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="row text-center">
+                    <h1>Appointments</h1>
+                    <a href="/appointments/{{doctor.id}}">Book an appointment with this doctor</a>
+                </div>
             </div>
         </div>
     </div>

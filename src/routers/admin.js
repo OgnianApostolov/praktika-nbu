@@ -6,6 +6,18 @@ const Media = require('../models/media');
 
 const router = new express.Router();
 
+router.get('/admin-media', async (req, res) => {
+    try {
+        const medias = await Media.find({}).sort({'createdAt': 'descending'});
+        
+        res.render('admin/admin_media', {
+            title: 'admin-media',
+            medias
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 router.get('/admin-doctors', async (req, res) => {
     try {
