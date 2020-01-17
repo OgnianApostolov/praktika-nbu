@@ -1,6 +1,7 @@
 const express = require('express');
 const Appointment = require('../models/appointment');
 const auth = require('../middleware/auth');
+const { notifyAppointmentEmail } = require('../emails/appointment');
 const router = new express.Router();
 
 // create appointment
@@ -9,6 +10,7 @@ router.post('/appointments', auth, async (req, res) => {
 
     try {
         await appointment.save();
+        notifyAppointmentEmail(user.email, user.firstName);
         res.status(201).send();
     } catch (error) {
         res.status(400).send(error.message);

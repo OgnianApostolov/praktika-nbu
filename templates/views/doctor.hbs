@@ -108,6 +108,10 @@
                 </div>
                 <br><br><br>
                 <div class="row text-center">
+                    {{#each doctor.comments}}
+                    <p class="text-left">{{name}}: {{comment}}</p>
+                    {{/each}}
+                    <br>
                     <label for="comment">Leave a comment as {{user.firstName}} {{user.lastName}}</label>
                     <input type="text" class="form-control" id="comment" aria-describedby="username">
 				    <button type="submit" class="btn btn-primary btn-block" id="commentBtn">Comment</button>
@@ -140,10 +144,6 @@
                         }
 
                     </script>
-
-                    {{#each doctor.comments}}
-                    <p class="text-left">{{name}}: {{comment}}</p>
-                    {{/each}}
                 </div>
             </div>
         </div>
