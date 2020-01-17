@@ -2,6 +2,8 @@ const express = require('express');
 const multer = require('multer');
 const sharp = require('sharp');
 const User = require('../models/user');
+const Appointment = require('../models/appointment');
+const Doctor = require('../models/doctor');
 const Media = require('../models/media');
 const auth = require('../middleware/auth');
 const user = require('../middleware/user');
@@ -75,10 +77,15 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 
 // get a user's profile
 router.get('/users/me', user, auth, async (req, res) => {
-    console.log(req.user);
-    
+    var appointments = await Appointment.find({client: user.id});
+    for (let i = 0; i < appointments.length; i++) {
+        const appointment = appointments[i];
+        const doc = await Doctor.findById(appointment.doctor);
+        appointments.doctor_name = doc.type + doc.name;
+    }
     res.render('user', {
-        user: req.user
+        user: req.user,
+        appointments
     });
     // res.send(req.user);
 });
