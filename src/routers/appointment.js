@@ -6,7 +6,7 @@ const router = new express.Router();
 // create appointment
 router.post('/appointments', auth, async (req, res) => {
     const appointment = new Appointment(req.body);
-
+    
     try {
         await appointment.save();
         res.status(201).send();
@@ -19,7 +19,11 @@ router.post('/appointments', auth, async (req, res) => {
 router.get('/appointments', auth, async (req, res) => {
     try {
         const appointments = await Appointment.find({});
-        res.send(appointments);
+
+        res.render('appointments', {
+            title: 'appointments',
+            appointments
+        });
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -93,6 +97,16 @@ router.delete('/appointments/:id', auth, async (req, res) => {
         }
 
         res.send(appointment);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
+router.delete('/appointments', auth, async (req, res) => {
+    try {
+        await Appointment.deleteMany();
+
+        res.send();
     } catch (error) {
         res.status(500).send(error.message);
     }

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Appointment</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">`
+
+    <link rel="stylesheet" type="text/css" href="/css/appointment.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col offset-md-1">
+                <form id="form_create_appointment">
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label class="required">Date</label>
+                            <input class="form-control date-input" type="text" id="date" data-trigger="hover" title="Date" data-content="You can select any date from today clicking on the number in the calendar" required>
+                        </div>
+                        <div class="col form-group">
+                            <label class="required">Email</label>
+                            <input class="form-control" type="text" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label class="required">Start Time</label>
+                            <input class="form-control time-input" type="text" id="start_time" required>
+                        </div>
+                        <div class="col form-group">
+                            <label class="required">End Time</label>
+                            <input class="form-control time-input" type="text" id="end_time" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <button type="button" class="btn btn-warning btn-block" id="clear" onclick="clear_input()">Clear Form</button>
+                        </div>
+                        <div class="col form-group">
+                            <button type="button" class="btn btn-primary btn-block" id="submit" onclick="CreateAppointment()" disabled="disabled">Make Appointment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col offset-md-1">
+                <div class="row">
+                    <div class="col">
+                        <h3>Appointments</h3>
+                    </div>
+                    <div class="col form-group">
+                        <button type="button" class="btn btn-danger btn-block" id="btn_clear_storage" onclick="DeleteAll()">Clear Appointments</button>
+                    </div>
+                </div>
+                <table class="table table-bordered table-hover table-striped table-sm" id="appointment_list">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" class="text-center align-middle">Date</th>
+                            <th scope="col" class="text-center align-middle">Email</th>
+                            <th scope="col" class="text-center align-middle">Start time</th>
+                            <th scope="col" class="text-center align-middle">End time</th>
+                            <th scope="col" class="text-center align-middle">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointments">
+                        {{#each appointments}}
+                        <tr id="{{id}}">
+                            <td id="grid_date" class="text-center align-middle">{{date}}</td>
+                            <td id="grid_email" class="text-center align-middle">{{email}}</td>
+                            <td id="grid_start" class="text-center align-middle">{{start}}</td>
+                            <td id="grid_end" class="text-center align-middle">{{end}}</td>
+                            <td class="text-center align-middle">
+                                <button class="btn btn-primary btn-sm " onclick="EditAppointment('{{id}}')"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-danger btn-sm " onclick="DeleteAppointment('{{id}}')"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+	<script src="/js/appointment.js"></script>
+</body>
+</html>

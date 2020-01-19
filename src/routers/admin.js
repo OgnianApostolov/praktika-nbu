@@ -23,6 +23,7 @@ router.get('/admin-doctors', async (req, res) => {
     try {
         const doctors = await Doctor.find({}).sort({'createdAt': 'descending'});      
         const medias = await Media.find({}).sort({'createdAt': 'descending'});
+        console.log(doctors)
 
         res.render('admin/admin_doctors', {
             title: 'admin-doctors',
