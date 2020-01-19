@@ -1,5 +1,6 @@
 const express = require('express');
 const Doctor = require('../models/doctor');
+const User = require('../models/user');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
@@ -29,20 +30,31 @@ router.get('/doctors', async (req, res) => {
     }
 });
 
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
+
 // get a particular doctor
-router.get('/doctors/:id', async (req, res) => {
+router.get('/doctors/:id', auth, async (req, res) => {
     const _id = req.params.id;
 
     try {
-        const doctor = await Doctor.findById(_id);
-
+        
+        var doctor = await Doctor.findById(_id);      
+        for (let i = 0; i < doctor.comments.length; i++) {
+            const current = doctor.comments[i];
+            const user = await User.findById(current.user);
+            doctor.comments[i].name = user.firstName + user.lastName;
+        }          
         if(!doctor){
             return res.status(404).send();
         }
         res.render('doctor', {
-            doctor
+            doctor,
+            user: req.user
         })
-        // res.send(doctor);
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -167,6 +179,19 @@ router.patch('/doctors/:id', async (req, res) => {
         res.status(400).send(error.message);
     }
 });
+
+// update doctor by id
+router.patch('/doctors/comment/:id', auth, async (req, res) => {
+    try{
+        const doctor = await Doctor.findById(req.params.id);
+        doctor.comments.push({user: req.user, comment: req.body.comment});
+        await doctor.save();
+        res.send(doctor);
+    } catch (error) {        
+        res.status(400).send(error.message);
+    }
+});
+
 
 // delete doctor
 router.delete('/doctors/:id', async (req, res) => {

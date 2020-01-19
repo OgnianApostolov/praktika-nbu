@@ -67,8 +67,21 @@
 			</div>
 			<p class="text-center" id="response" style="color: red"></p>
 		</div>
+
+		<div class="col-sm-6">
+			<h3>Manipulations and ambulatory list</h3>
+			<p>{{{user.ambulatory_list}}}</p>
+		</div>
+
+		<div class="col-sm-6">
+			<h3>Appointment history</h3>
+			{{#each appointments}}
+			<p>{{date}} {{doctor_name}}</p>
+			{{/each}}
+		</div>
 </body>
 
 {{>scripts}}
+<script src="../js/user/user.js"></script>
 
 </html>

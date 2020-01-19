@@ -2,10 +2,13 @@ const express = require('express');
 const multer = require('multer');
 const sharp = require('sharp');
 const User = require('../models/user');
+const Appointment = require('../models/appointment');
+const Doctor = require('../models/doctor');
 const Media = require('../models/media');
 const auth = require('../middleware/auth');
 const user = require('../middleware/user');
 const Session = require('../models/session');
+const { sendWelcomeEmail, sendCancelationEmail, sendConfirmationEmail, sendPasswordResetEmail, sendResetPasswordEmail } = require('../emails/account');
 const router = new express.Router();
 
 // create user
@@ -14,6 +17,7 @@ router.post('/users', async (req, res) => {
 
     try {
         await user.save();
+        sendConfirmationEmail(user.email, user.firstName);
         const token = await user.generateAuthToken();
         res.status(201).send({user, token});
     } catch (error) {
@@ -73,10 +77,15 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 
 // get a user's profile
 router.get('/users/me', user, auth, async (req, res) => {
-    console.log(req.user);
-    
+    var appointments = await Appointment.find({client: user.id});
+    for (let i = 0; i < appointments.length; i++) {
+        const appointment = appointments[i];
+        const doc = await Doctor.findById(appointment.doctor);
+        appointments.doctor_name = doc.type + doc.name;
+    }
     res.render('user', {
-        user: req.user
+        user: req.user,
+        appointments
     });
     // res.send(req.user);
 });
@@ -136,6 +145,7 @@ router.patch('/users/me', auth, async(req, res) => {
 router.delete('/users/me', auth, async (req, res) => {
     try {
         await req.user.remove();
+        sendCancelationEmail(req.user.email, req.user.firstName);
         res.send(req.user);
     } catch (error) {
         res.status(500).send(error.message);
@@ -204,6 +214,7 @@ router.get('/users/confirm/:email', async(req, res) => {
         
         user.isConfirmed = true;
         await user.save();
+        sendWelcomeEmail(user.email, user.firstName);
         const token = await user.generateAuthToken();
         res.redirect('/users/me').send({ user, token });
     } catch (error) {
@@ -225,6 +236,7 @@ router.get('/users/send-password-reset/:email', async(req, res) => {
             return res.status(400).send({error: 'Invalid user!'});
         }
         
+        sendPasswordResetEmail(user.email, user.firstName);
         res.status(201).send();
     } catch (error) {
         res.status(400).send(error.message);
@@ -247,6 +259,7 @@ router.patch('/change-password/:email', async (req, res) => {
         }
         user.password = req.body.password;
         await user.save();
+        sendResetPasswordEmail(user.email, user.firstName);
         res.status(201).send();
     } catch (error) {
         res.status(400).send(error.message);
