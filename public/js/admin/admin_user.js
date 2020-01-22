@@ -3,7 +3,6 @@ const $form = document.querySelector('#user-form');
 const text = $form.querySelector('#text');
 const $submit = document.querySelector('#save');
 const $close = document.querySelector('#close');
-const $delete = document.querySelector('#del');
 const $response = document.querySelector('#response');
 
 CKEDITOR.replace('ambulatory_list', {
@@ -28,13 +27,6 @@ $close.addEventListener('click', (e) => {
     e.preventDefault();//do not refresh page
     
     window.open('/admin-users', '_self');
-});
-
-
-$delete.addEventListener('click', (e) => {
-    e.preventDefault();//do not refresh page
-    
-    deleteRequest();
 });
 
 function updateRequest(data){

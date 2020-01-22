@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
         const session = await Session.findOne({ 'session_id': req.sessionID });
         const token = session.token;
         
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);   
+        const decoded = jwt.verify(token, 'my_jwt_secret');   
                 
         //find a user with the correct id, who has an authentication token still stored
         // 'tokens.token' means it will look inside the array of tokens to check if the token above matches 
@@ -21,7 +21,7 @@ const auth = async (req, res, next) => {
         req.token = token;
         req.user = user;
         next();
-    } catch (e) {
+    } catch (e) {        
         res.render('login');
         // res.status(401).send({error: 'Please authenticate.'});
     }

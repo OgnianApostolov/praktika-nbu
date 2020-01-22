@@ -5,11 +5,11 @@ const appointmentSchema = new mongoose.Schema({
 		type: String,
 		required: true
     },
-	// doctor: {
-	// 	type:mongoose.Schema.Types.ObjectId,
-    //     ref:'Doctor',
-	// 	required: true
-	// },
+	doctor: {
+		type:mongoose.Schema.Types.ObjectId,
+        ref:'Doctor',
+		required: true
+	},
 	// client: {
 	// 	type:mongoose.Schema.Types.ObjectId,
     //     ref:'User',

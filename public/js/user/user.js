@@ -1,4 +1,5 @@
-const name = document.querySelector('#name');
+const firstName = document.querySelector('#firstName');
+const lastName = document.querySelector('#lastName');
 const email = document.querySelector('#email');
 const password = document.querySelector('#password');
 const new_password = document.querySelector('#new_password');
@@ -18,37 +19,17 @@ const tax_identification_number = document.querySelector('#tax_identification_nu
 
 const notes = document.querySelector('#notes');
 
-const $save = document.querySelector('#save');
 const $saveInfo = document.querySelector('#saveInfo');
 const $changePass = document.querySelector('#changePass');
 const $logout = document.querySelector('#logout');
 const $response = document.querySelector('#response');
 
-$save.addEventListener('click', (e) => {
-    e.preventDefault();//do not refresh page
-
-    const data = {
-        firstname: firstname.value,
-        lastname: lastname.value,
-        phone_number: phone_number.value,
-        address: address.value,
-        city: city.value,
-        state: state.value,
-        country: country.value,
-        zip_code: zip_code.value,
-        organization_name: organization_name.value,
-        tax_identification_number: tax_identification_number.value,
-        notes: notes.value
-    };
-
-    updateRequest(data);
-});
-
 $saveInfo.addEventListener('click', (e) => {
     e.preventDefault();//do not refresh page
 
     const data = {
-        name: name.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
         email: email.value
     };
 
@@ -84,7 +65,7 @@ $logout.addEventListener('click', (e) => {
 
 function updateRequest(data){
     const http = new XMLHttpRequest();
-    const url = '/users/me';    
+    const url = '/user/me';    
     
     http.open('PATCH', url, true);
     http.setRequestHeader('Content-type', 'application/json');

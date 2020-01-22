@@ -30,16 +30,10 @@ router.get('/doctors', async (req, res) => {
     }
 });
 
-async function asyncForEach(array, callback) {
-    for (let index = 0; index < array.length; index++) {
-        await callback(array[index], index, array);
-    }
-}
-
 // get a particular doctor
 router.get('/doctors/:id', auth, async (req, res) => {
     const _id = req.params.id;
-
+    
     try {
         
         var doctor = await Doctor.findById(_id);      
@@ -56,6 +50,8 @@ router.get('/doctors/:id', auth, async (req, res) => {
             user: req.user
         })
     } catch (error) {
+        console.log(error);
+        
         res.status(500).send(error.message);
     }
 });

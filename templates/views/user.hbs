@@ -25,15 +25,17 @@
 
 <body>
 	{{>header}}
-	<button id="logout"><i class="fas fa-sign-out-alt"></i></button>
 	<div class="container">
 		<h1 class="text-center">My Profile</h1>
 		
 		<div class="col-sm-6">
 			<h3>My Information</h3>
 			<hr>
-			<label for="name">Name</label>
-			<input type="text" class="form-control" id="name" value="{{user.name}}">
+			<label for="firstName">First name</label>
+			<input type="text" class="form-control" id="firstName" value="{{user.firstName}}">
+			<br>
+			<label for="lastName">Last name</label>
+			<input type="text" class="form-control" id="lastName" value="{{user.lastName}}">
 			<br>
 			<label for="email">Email</label>
 			<input type="text" class="form-control" id="email" value="{{user.email}}">

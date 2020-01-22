@@ -8,6 +8,8 @@
 	<title>{{title}}</title>
 
 	{{>admin_styles}}
+  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 	<style>
 		body {
@@ -59,5 +61,26 @@
 </body>
 
 {{>admin_scripts}}
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Page level custom scripts -->
+<script>
+    // Call the dataTables jQuery plugin
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+
+    $(document).ready(function($) {
+        $('*[data-href]').on('click', function() {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
+<style>
+[data-href] {
+    cursor: pointer;
+}
+</style>
 
 </html>

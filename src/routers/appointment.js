@@ -5,8 +5,12 @@ const { notifyAppointmentEmail } = require('../emails/appointment');
 const router = new express.Router();
 
 // create appointment
-router.post('/appointments', auth, async (req, res) => {
-    const appointment = new Appointment(req.body);
+router.post('/appointments/:doctor_id', auth, async (req, res) => {
+    const appointment = new Appointment({
+        ...req.body,
+        doctor: req.params.doctor_id
+     });
+    
     
     try {
         await appointment.save();
@@ -18,13 +22,15 @@ router.post('/appointments', auth, async (req, res) => {
 });
 
 // get all appointments
-router.get('/appointments', auth, async (req, res) => {
+router.get('/appointments/:doctor_id', auth, async (req, res) => {
     try {
         const appointments = await Appointment.find({});
 
         res.render('appointments', {
             title: 'appointments',
-            appointments
+            appointments,
+            user: req.user,
+            doctor_id: req.params.doctor_id
         });
     } catch (error) {
         res.status(500).send(error.message);
@@ -34,22 +40,6 @@ router.get('/appointments', auth, async (req, res) => {
 // get a particular appointment
 router.get('/appointments/:id', async (req, res) => {
     const _id = req.params.id;
-    try {
-        const appointment = await Appointment.findById(_id);
-
-        if(!appointment){
-            return res.status(404).send();
-        }
-        res.send(appointment);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-
-router.get('/appointments/:doctor_id/:user_id/:date', async (req, res) => {
-    const doctor_id = req.params.doctor_id;
-    const user_id = req.params.user_id;
-    const date = req.params.date;
     try {
         const appointment = await Appointment.findById(_id);
 

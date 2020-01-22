@@ -11,6 +11,8 @@
 	{{>admin_styles}}
 
 	<link href="/node_modules/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet">
+  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 	<style>
 		body {
@@ -313,22 +315,45 @@
 				<button type="submit" class="btn btn-primary" id="addSundayHours"><i
 						class="fas fa-plus-circle"></i></button>
 				<hr>
-
 				<br>
 				<p id="response" style="color: red"></p>
 				<br>
 				{{#if doctor}}
 				<button type="submit" class="btn btn-danger" id="del"><i class="fas fa-trash-alt"></i></button>
-				<button type="submit" class="btn btn-primary" id="save_and_duplicate">Save & Duplicate</button>
 				{{else}}
 				<button type="submit" class="btn btn-danger" id="del" disabled='true'><i
 						class="fas fa-trash-alt"></i></button>
-				<button type="submit" class="btn btn-primary" id="save_and_duplicate" disabled='true'>Save &
-					Duplicate</button>
 				{{/if}}
 				<button type="submit" class="btn btn-primary" id="close">Close</button>
 				<button type="submit" class="btn btn-primary" id="save">Save</button>
 			</form>
+			<br>
+			<br>
+			<h2>My appointments</h2>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Patient</th>
+								<th>Date</th>
+								<th>Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each appointments}}
+							<tr>
+								<td><a href="admin-user?id={{email}}">{{email}}</a></td>
+								<td>{{date}}</td>
+								<td>{{start}} - {{end}}</td>
+							</tr>
+							{{else}}
+							<p class="empty">Currently you have no doctors</p>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -337,5 +362,26 @@
 {{>admin_scripts}}
 <script src="/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 <script src="/js/admin/admin_doctor.js"></script>
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Page level custom scripts -->
+<script>
+    // Call the dataTables jQuery plugin
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+
+    $(document).ready(function($) {
+        $('*[data-href]').on('click', function() {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
+<style>
+[data-href] {
+    cursor: pointer;
+}
+</style>
 
 </html>

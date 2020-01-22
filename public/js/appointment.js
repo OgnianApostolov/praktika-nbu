@@ -227,7 +227,7 @@ function get_Date(time, arrDate = false) {
 function SaveAppointment(appointment)
 {
     const http = new XMLHttpRequest();
-    const url = '/appointments';
+    const url = '/appointments/'+doctor_id;
     
     http.open('POST', url, true);
     http.setRequestHeader('Content-type', 'application/json');

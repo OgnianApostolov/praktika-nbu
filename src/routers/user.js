@@ -29,8 +29,6 @@ router.post('/users', async (req, res) => {
 router.post('/users/login', async (req, res) => {    
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
-
-        console.log(user);
         
         const token = await user.generateAuthToken();
 
@@ -47,7 +45,7 @@ router.post('/users/login', async (req, res) => {
 });
 
 // logout a user
-router.post('/users/logout', auth, async (req, res) => {
+router.get('/users/logout', auth, async (req, res) => {
     try {
         // delete the authentication token from the user
         req.user.tokens = req.user.tokens.filter((token) => {
@@ -56,14 +54,14 @@ router.post('/users/logout', auth, async (req, res) => {
 
         await req.user.save();
 
-        res.send();
+        res.redirect('/');
     } catch (error) {
         res.status(500).send(error.message);
     }
 });
 
 // logout all user tokens
-router.post('/users/logoutAll', auth, async (req, res) => {
+router.get('/users/logoutAll', auth, async (req, res) => {
     try {
         req.user.tokens = [];
 
@@ -95,6 +93,30 @@ router.get('/users/:id', auth, async (req, res) => {
     res.send(user);
 });
 
+
+
+// update a user
+router.patch('/user/me', auth, async(req, res) => {    
+    //return message for invalid updates
+    const updates = Object.keys(req.body);
+    const allowed_updates = ['firstName', 'lastName', 'email', 'password', 'avatar', 'isAdmin', 'isStaff', 'isConfirmed', 'ambulatory_list', 'upvotes', 'downvotes', 'blacklist' ];
+    //cycle trough the updates array and if it returns false - return
+    const isValidOperation = updates.every((update) => allowed_updates.includes(update));
+    if(!isValidOperation){
+        return res.status(400).send({error: 'Invalid updates!'});
+    }
+    
+    try {
+        updates.forEach((update) => req.user[update] = req.body[update]);
+        
+        await req.user.save();
+        
+        res.send(req.user);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
 // update a user
 router.patch('/users/:id', async(req, res) => {
     const user = await User.findById(req.params.id);
@@ -113,29 +135,6 @@ router.patch('/users/:id', async(req, res) => {
         await user.save();
         
         res.send(user);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-});
-
-
-// update a user
-router.patch('/users/me', auth, async(req, res) => {
-    //return message for invalid updates
-    const updates = Object.keys(req.body);
-    const allowed_updates = ['firstname', 'lastname', 'email', 'password', 'avatar', 'isAdmin', 'isStaff', 'isConfirmed', 'ambulatory_list', 'upvotes', 'downvotes', 'blacklist' ];
-    //cycle trough the updates array and if it returns false - return
-    const isValidOperation = updates.every((update) => allowed_updates.includes(update));
-    if(!isValidOperation){
-        return res.status(400).send({error: 'Invalid updates!'});
-    }
-
-    try {
-        updates.forEach((update) => req.user[update] = req.body[update]);
-
-        await req.user.save();
-        
-        res.send(req.user);
     } catch (error) {
         res.status(400).send(error.message);
     }

@@ -3,6 +3,7 @@ const express = require('express');
 const Doctor = require('../models/doctor');
 const User = require('../models/user');
 const Media = require('../models/media');
+const Appointment = require('../models/appointment');
 const admin_auth = require('../middleware/admin-auth');
 
 const router = new express.Router();
@@ -20,11 +21,10 @@ router.get('/admin-media', admin_auth, async (req, res) => {
     }
 });
 
-router.get('/admin-doctors', async (req, res) => {
+router.get('/admin-doctors', admin_auth, async (req, res) => {
     try {
         const doctors = await Doctor.find({}).sort({'createdAt': 'descending'});      
         const medias = await Media.find({}).sort({'createdAt': 'descending'});
-        console.log(doctors)
 
         res.render('admin/admin_doctors', {
             title: 'admin-doctors',
@@ -36,22 +36,26 @@ router.get('/admin-doctors', async (req, res) => {
     }
 });
 
-router.get('/admin-doctor', async (req, res) => {
+router.get('/admin-doctor', admin_auth, async (req, res) => {
     try {       
         const doctor = await Doctor.findById(req.query.id);      
         const medias = await Media.find({}).sort({'createdAt': 'descending'});
+        const appointments = await Appointment.find({'doctor': doctor.id}).sort({'createdAt': 'descending'});
 
         res.render('admin/admin_doctor', {
             title: 'admin-doctor',
             doctor,
-            medias
+            medias,
+            appointments
         });
     } catch (error) {
+        console.log(error);
+        
         res.status(500).send(error);        
     }
 });
 
-router.get('/admin-users', async (req, res) => {
+router.get('/admin-users', admin_auth, async (req, res) => {
     try {
         const users = await User.find({}).sort({'createdAt': 'descending'});      
         const medias = await Media.find({}).sort({'createdAt': 'descending'});
@@ -66,9 +70,9 @@ router.get('/admin-users', async (req, res) => {
     }
 });
 
-router.get('/admin-user', async (req, res) => {
+router.get('/admin-user', admin_auth, async (req, res) => {
     try {       
-        const user = await User.findById(req.query.id);      
+        const user = await User.findOne({'email': req.query.email});      
         const medias = await Media.find({}).sort({'createdAt': 'descending'});
 
         res.render('admin/admin_user', {
