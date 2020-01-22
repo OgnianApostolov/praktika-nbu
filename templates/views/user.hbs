@@ -81,6 +81,23 @@
 			<p>{{date}} {{doctor_name}}</p>
 			{{/each}}
 		</div>
+
+		<div class="col-sm-6">
+			<h3>Blacklist</h3>
+			<br>
+			<select id="blacklist" class="selectpicker form-control col-sm-2" title="Blacklist" data-live-search="true" multiple>
+				{{#each doctors}}
+					<option value='{{id}}'>{{type}} {{name}}</option>
+				{{/each}}
+			</select>
+		
+			<script>
+				var blacklist_from_server = [];
+				'{{#each user.blacklist}}'
+					blacklist_from_server.push('{{doctor_id}}');
+				'{{/each}}'
+			</script>
+		</div>
 </body>
 
 {{>scripts}}

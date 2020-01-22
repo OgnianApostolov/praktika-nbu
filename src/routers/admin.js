@@ -38,15 +38,20 @@ router.get('/admin-doctors', admin_auth, async (req, res) => {
 
 router.get('/admin-doctor', admin_auth, async (req, res) => {
     try {       
-        const doctor = await Doctor.findById(req.query.id);      
+        const doctor = await Doctor.findById(req.query.id);
         const medias = await Media.find({}).sort({'createdAt': 'descending'});
-        const appointments = await Appointment.find({'doctor': doctor.id}).sort({'createdAt': 'descending'});
+        var  appointments = [];
+        if(doctor){
+            appointments = await Appointment.find({'doctor': doctor.id}).sort({'createdAt': 'descending'});
+        }
+        const users = await User.find({});        
 
         res.render('admin/admin_doctor', {
             title: 'admin-doctor',
             doctor,
             medias,
-            appointments
+            appointments,
+            users
         });
     } catch (error) {
         console.log(error);

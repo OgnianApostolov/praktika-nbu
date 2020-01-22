@@ -19,10 +19,30 @@ const tax_identification_number = document.querySelector('#tax_identification_nu
 
 const notes = document.querySelector('#notes');
 
+$('#blacklist').selectpicker('val', blacklist_from_server);
+const blacklist_menu = document.querySelector('#blacklist');
+
 const $saveInfo = document.querySelector('#saveInfo');
 const $changePass = document.querySelector('#changePass');
 const $logout = document.querySelector('#logout');
 const $response = document.querySelector('#response');
+
+
+blacklist_menu.addEventListener('change', (e) => {
+    e.preventDefault();//do not refresh page
+    
+    var blacklist = [];
+    
+        for(var i = 0; i < $('#blacklist').val().length; i ++){
+            blacklist.push({doctor_id: $('#blacklist').val()[i]});
+        }  
+
+    const data = {
+        blacklist
+    };
+
+    updateRequest(data);
+});
 
 $saveInfo.addEventListener('click', (e) => {
     e.preventDefault();//do not refresh page

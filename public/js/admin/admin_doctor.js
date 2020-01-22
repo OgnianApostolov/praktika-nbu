@@ -169,6 +169,12 @@ $usebtn.addEventListener('click', (e) => {
 $submit.addEventListener('click', (e) => {
     e.preventDefault();//do not refresh page
 
+    var blacklist = [];
+
+    for(var i = 0; i < $('#blacklist').val().length; i ++){
+        blacklist.push({user_id: $('#blacklist').val()[i]});
+    }  
+
     const data = {
         name: name.value,
         type: type.value,
@@ -203,6 +209,7 @@ $submit.addEventListener('click', (e) => {
             hours: []
         },
         medias: selectedMediaIds,
+        blacklist
     };    
     
     function appendHours(hours_div, append_to){
@@ -326,6 +333,7 @@ function initializeListeners(){
         });
     }
 
+    $('#blacklist').selectpicker('val', blacklist_from_server);
     
     
     function initHours(hours_div){

@@ -17,12 +17,30 @@ router.post('/doctors', async (req, res) => {
 });
 
 // get all doctors
-router.get('/doctors', async (req, res) => {
-    try {
+router.get('/doctors', auth, async (req, res) => {
+    try {        
+        var filtered_doctors = [];
         const doctors = await Doctor.find({});
+        
+        for (let i = 0; i < doctors.length; i++) {
+            const doctor = doctors[i];
+            console.log('doctor',doctor.id);
+            
+            
+            for (let j = i; j < req.user.blacklist.length; j++) {
+                const blacklist = req.user.blacklist[j];
+                console.log('blacklist', blacklist);
+                
+                
+                if(doctor.id !== blacklist.doctor_id){
+                    filtered_doctors.push(doctor);
+                }
+            }
+        }
+        
         res.render('doctors', {
             title: 'doctors',
-            doctors
+            doctors: filtered_doctors
         });
         // res.send(doctors);
     } catch (error) {

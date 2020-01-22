@@ -8,10 +8,11 @@
 
 	<title>{{title}}</title>
 
+	<link  href="/node_modules/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
 	{{>admin_styles}}
 
+  	<link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<link href="/node_modules/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet">
-  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 
 	<style>
@@ -75,6 +76,19 @@
 				<br>
 				<label for="notes">Notes</label>
 				<input type="text" class="form-control" id="notes" value="{{doctor.notes}}">
+				<br>
+				<select id="blacklist" class="selectpicker form-control col-sm-2" title="Blacklist" data-live-search="true" multiple>
+					{{#each users}}
+    					<option value='{{id}}'>{{email}}</option>
+					{{/each}}
+				</select>
+
+				<script>
+					var blacklist_from_server = [];
+					'{{#each doctor.blacklist}}'
+						blacklist_from_server.push('{{user_id}}');
+					'{{/each}}'
+				</script>
 
 				<hr>
 				{{!-- Moday --}}
@@ -359,9 +373,10 @@
 
 
 </body>
-{{>admin_scripts}}
+<script src="/node_modules/bootstrap-select/js/bootstrap-select.js"></script>
 <script src="/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 <script src="/js/admin/admin_doctor.js"></script>
+{{>admin_scripts}}
 <!-- Page level plugins -->
 <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>

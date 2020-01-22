@@ -69,7 +69,9 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
     blacklist: [{
-        type: mongoose.Schema.Types.ObjectId
+        doctor_id:{
+            type: mongoose.Schema.Types.ObjectId
+        }
     }]
 },{
     timestamps: true

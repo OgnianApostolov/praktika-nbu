@@ -81,9 +81,12 @@ router.get('/users/me', user, auth, async (req, res) => {
         const doc = await Doctor.findById(appointment.doctor);
         appointments.doctor_name = doc.type + doc.name;
     }
+    const doctors = await Doctor.find({});
+    
     res.render('user', {
         user: req.user,
-        appointments
+        appointments,
+        doctors
     });
     // res.send(req.user);
 });

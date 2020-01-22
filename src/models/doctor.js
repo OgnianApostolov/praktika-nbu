@@ -126,7 +126,9 @@ const doctorSchema = new mongoose.Schema({
         }
     }],
     blacklist: [{
-        type: mongoose.Schema.Types.ObjectId
+        user_id: {
+            type: mongoose.Schema.Types.ObjectId
+        }
     }],
     comments: [{
         comment: {
