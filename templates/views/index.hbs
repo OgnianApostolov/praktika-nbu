@@ -5,41 +5,75 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+     
 
-    <title>Dentists</title>
+    <title>Reliance Dental Care Center</title>
 
     {{>styles}}
 
     <style>
+
         body {
+            height: 100%;
             margin: 0;
             padding: 0;
             overflow: hidden;
+            display:flex;
+            align-items: center;
+            min-height: 100vh;
+
         }
 
         canvas {
             margin: auto;
         }
+
+        header{
+	
+        justify-content:flex-end;
+        height: 100%;
+        background-image: url(/images/photo.jpg);
+        
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        overflow:hidden;
+        }
+
+        
+  
+
+
+        
+        
+
+
     </style>
 </head>
 
 <body>
+    <header>
 
     {{>header}}
+  
+           
+    
+    
 
     <div id="content-wrapper" class="container-fluid">
         <div class="row">
             <div class="bg_image">
                 <div id="about_text_bg">
-                    <h1>Lorem ipsum text</h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book.
+                    <h1>Reliance Dental Care Center</h1>
+                    <p>Modern dentistry has evolved to the point where even the procedures that once caused the most fear are easier, 
+                        safer, more effective and more comfortable than ever. If you have any anxiety about visiting the dentist,
+                         we invite you to arrange a visit with our professional and friendly clinical team.
                     </p>
-                    <p> It has survived not only five centuries, but also the leap into electronic typesetting,
-                        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                        Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p> Our dentist and team are friendly, gentle, kind and will help you feel completely at ease. 
+                        Our clinic has a welcoming atmosphere that will reduce any stress you have while visiting.</p>
                 </div>
             </div>
         </div>
@@ -50,5 +84,5 @@
 </body>
 
 {{>scripts}}
-
+</header>
 </html>
